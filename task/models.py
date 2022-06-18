@@ -23,3 +23,9 @@ class Task(models.Model):
 	def __str__(self):
 		return f'{self.id} {self.title}'
 
+
+class Rating(models.Model):
+	id = models.AutoField(primary_key=True)
+	user_name = models.CharField(max_length=255)
+	point = models.PositiveIntegerField()
+	created_at = models.DateTimeField(auto_now_add=True)
