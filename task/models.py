@@ -27,5 +27,20 @@ class Task(models.Model):
 class Rating(models.Model):
 	id = models.AutoField(primary_key=True)
 	user_name = models.CharField(max_length=255)
-	point = models.PositiveIntegerField()
+	point = models.CharField(max_length=20, choices=(
+		('1', '1'),
+		('2', '2'),
+		('3', '3'),
+		('4', '4'),
+		('5', '5')
+	))
 	created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Comment(models.Model):
+	id = models.AutoField(primary_key=True)
+	user_name = models.CharField(max_length=255)
+	text = models.TextField()
+	# task_id = # ForeignKey
+	created_at = models.DateTimeField(auto_now_add=True)
+

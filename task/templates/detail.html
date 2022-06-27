@@ -1,45 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <style>
-        body {
-            margin: 0;
-        }
-        header, footer {
-            background-color: grey;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 40px;
-        }
-        #content {
-            margin: 0px 10px;
-        }
-        .task {
-            border: 1px solid grey;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<header>
-    ToDo
-</header>
+{% block TITLE %}
+    {{ title }}
+{% endblock TITLE %}
 
-<div id="content">
+{% block CONTENT %}
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Created at: {{ task.created_at }}</p>
 
-        <h2>{{ task.title }}</h2>
-        <p>{{ task.description }}</p>
-        <p>Status: {{ task.status }}</p>
-        <p>Created at: {{ task.created_at }}</p>
-</div>
+    <div class="forms">
+        <div class="comments">
+            <h3>Leave comments</h3>
+            <form action="{% url 'comment' %}" method="post">
+                {% csrf_token %}
+                {{ comment_form }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
 
-<footer>
-    This is a footer
-</footer>
+        <div class="rating">
+            <h3>Rating task</h3>
 
-</body>
-</html>
+            <form action="{% url 'rating' %}" method="post">
+                {% csrf_token %}
+                {{ rating_form }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+
+    </div>
+
+    <div class="list-comments">
+        {% if comments %}
+            {% for comment in comments %}
+                <p>{{ comment.user_name }}: {{ comment.text }}</p>
+                <span>{{ comment.created_at }}</span>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet</p>
+        {% endif %}
+        </div>
+{% endblock CONTENT %}

@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
-from task.models import Task
+from task.forms import CommentForm, CommentModelForm, RatingModelForm
+from task.models import Task, Comment
 
 
 def index(request):
-	return HttpResponse('Hello, world!')
+	return render(request, 'base.html')
 
 
 def get_all_tasks(request):
@@ -36,9 +37,37 @@ def get_task_detail(request, task_id):
 		return HttpResponse(f'Задачи с номером {task_id} не существует!')
 	context = {
 		'title': task.title,
-		'task': task
+		'task': task,
+		'comments': Comment.objects.order_by('-id').all(),
+		'comment_form': CommentModelForm(),
+		'rating_form': RatingModelForm()
 	}
 	return render(request, 'detail.html', context)
+
+
+def comment_views(request):
+	if request.method == 'POST':
+		form = CommentModelForm(request.POST)
+		"""
+		INSERT INTO comments (user_name, text) values ('Иван', 'Привет мир!')
+		"""
+		if form.is_valid():
+			form.save()
+			# Comment.objects.create(
+			# 	user_name=form.data.get('user_name'),
+			# 	text=form.data.get('text')
+			# )
+		return redirect(request.headers.get('Referer'))  # Вернуть пользователя на пред. страницу
+	else:
+		return redirect('all_tasks')
+
+
+def rating_views(request):
+	if request.method == 'POST':
+		form = RatingModelForm(request.POST)
+		if form.is_valid():
+			form.save()
+	return redirect(request.headers.get('Referer'))  # Вернуть пользователя на пред. страницу
 
 
 """

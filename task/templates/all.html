@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <style>
-        body {
-            margin: 0;
-        }
-        header, footer {
-            background-color: grey;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 40px;
-        }
-        #content {
-            margin: 0px 10px;
-        }
-        .task {
-            border: 1px solid grey;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<header>
-    ToDo
-</header>
+{% block TITLE %}
+{{ title }}
+{% endblock TITLE %}
 
-<div id="content">
-
+{% block CONTENT %}
     {% for task in tasks %}
         <div class="task">
             <h2>{{ task.title }}</h2>
@@ -39,11 +13,4 @@
             <a href="http://localhost:8000/tasks/detail/{{ task.id }}">Посмотреть детальную информацию о задаче</a>
         </div>
     {% endfor %}
-</div>
-
-<footer>
-    This is a footer
-</footer>
-
-</body>
-</html>
+{% endblock CONTENT %}

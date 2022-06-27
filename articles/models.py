@@ -10,3 +10,4 @@ class Article(models.Model):
 	created_at = models.DateTimeField(
 		auto_now_add=True
 	)  # Дата и время которая задается автоматически при создании записи
+
