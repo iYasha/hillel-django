@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'authorizations.apps.AuthorizationsConfig',
     'articles.apps.ArticlesConfig',
     'task.apps.TaskConfig',
 

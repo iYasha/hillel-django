@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Task(models.Model):
@@ -25,8 +26,9 @@ class Task(models.Model):
 
 
 class Rating(models.Model):
+	# @TODO Связать рейтинг с задачами
+	# @TODO Связать рейтинг с пользователями
 	id = models.AutoField(primary_key=True)
-	user_name = models.CharField(max_length=255)
 	point = models.CharField(max_length=20, choices=(
 		('1', '1'),
 		('2', '2'),
@@ -39,8 +41,8 @@ class Rating(models.Model):
 
 class Comment(models.Model):
 	id = models.AutoField(primary_key=True)
-	user_name = models.CharField(max_length=255)
 	text = models.TextField()
-	# task_id = # ForeignKey
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	task = models.ForeignKey(Task, on_delete=models.CASCADE)
 	created_at = models.DateTimeField(auto_now_add=True)
 

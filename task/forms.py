@@ -4,7 +4,6 @@ from task.models import Comment, Rating
 
 
 class CommentForm(forms.Form):
-	user_name = forms.CharField(max_length=255)
 	text = forms.CharField(max_length=2000)
 	choices = forms.ChoiceField(
 		choices=[
@@ -17,7 +16,7 @@ class CommentForm(forms.Form):
 class CommentModelForm(forms.ModelForm):
 	class Meta:
 		model = Comment  # Название модели
-		fields = '__all__'  # ['user_name', 'text']  # Список полей
+		fields = ['text']  # Список полей  '__all__'
 
 
 class RatingModelForm(forms.ModelForm):
@@ -25,7 +24,6 @@ class RatingModelForm(forms.ModelForm):
 		model = Rating
 		fields = '__all__'
 		labels = {
-			'point': 'Rate',
-			'user_name': 'Your name'
+			'point': 'Rate'
 		}
 
