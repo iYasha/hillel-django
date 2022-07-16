@@ -18,7 +18,6 @@ class TaskView(ListView):
 		print('GET', args, kwargs)
 
 
-
 @login_required(login_url='login')
 def get_all_tasks(request):
 	context = {

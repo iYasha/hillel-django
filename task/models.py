@@ -36,6 +36,12 @@ class Rating(models.Model):
 		('4', '4'),
 		('5', '5')
 	))
+	asdasd = models.CharField(max_length=20)
+	"""
+	1) asdasd = models.CharField(max_length=20, blank=True, null=True)
+	2) asdasd = models.CharField(max_length=20, default='Default value')
+	3) Удалить все записи из таблицы которая связана с моделью
+	"""
 	created_at = models.DateTimeField(auto_now_add=True)
 
 
